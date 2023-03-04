@@ -1,45 +1,15 @@
 version: '3'
 
 services:
-  mqtt:
-    image: eclipse-mosquitto
-    container_name: mqtt
-    restart: always
-    ports:
-      - "1883:1883"
-      - "8883:8883"
-    volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
-      - ./ca_certs.crt:/mosquitto/ca_certificates/ca_certs.crt
-      - ./server.crt:/mosquitto/certs/server.crt
-      - ./server.key:/mosquitto/certs/server.key
-    environment:
-      - TZ=UTC
-    command: sh -c "mosquitto -c /mosquitto/config/mosquitto.conf"
-
-  rhasspy:
-    image: synesthesiam/rhasspy-server:latest
+ rhasspy:
+    image: "rhasspy/rhasspy"
     container_name: rhasspy
-    restart: always
-    ports:
-      - "12101:12101"
-      - "12183:12183"
+    restart: unless-stopped
     volumes:
-      - ./rhasspy/profiles:/profiles
-    environment:
-      - RHASSPY_PROFILE=es
-      - RHASSPY_ARGS=--user-profiles /profiles
-      - RHASSPY_HTTP_PORT=12101
-      - RHASSPY_MQTT_HOST=mqtt
-      - RHASSPY_MQTT_PORT=8883
-      - RHASSPY_MQTT_USERNAME=
-      - RHASSPY_MQTT_PASSWORD=
-      - RHASSPY_MQTT_TLS=true
-      - RHASSPY_MQTT_TLS_CA=/profiles/ca_certs.crt
-      - RHASSPY_MQTT_TLS_CERT=/profiles/server.crt
-      - RHASSPY_MQTT_TLS_KEY=/profiles/server.key
-      - RHASSPY_MQTT_TLS_VERIFY=required
-    depends_on:
-      - mqtt
+        - "./rhasspy/profiles:/profiles"
+        - "/etc/localtime:/etc/localtime:ro"
+    ports:
+        - "12101:12101"
+    devices:
+        - "/dev/snd:/dev/snd"
+    command: --user-profiles /profiles --profile en
