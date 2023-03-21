@@ -1,0 +1,10 @@
+tunnel: d04411414141
+credentials-file: /home/user/.cloudflared/d04411414141.json
+
+ingress:
+  - hostname: evabroker.sanchezcarlosjr.com
+    service: ws://localhost:9001
+    originRequest:
+       httpHostHeader: "localhost"
+  - service: http_status:404
+

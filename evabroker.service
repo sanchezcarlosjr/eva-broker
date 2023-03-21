@@ -1,0 +1,13 @@
+[Unit]
+Description=Eva Broker
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Type=notify
+ExecStart=cloudflared tunnel --no-autoupdate --config /home/user/.cloudflared/[uid].yml run
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
