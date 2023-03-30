@@ -1,0 +1,23 @@
+{
+  "name": "eva-broker",
+  "version": "1.0.0",
+  "description": "Eva Broker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanchezcarlosjr/eva-broker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanchezcarlosjr/eva-broker/issues"
+  },
+  "homepage": "https://github.com/sanchezcarlosjr/eva-broker#readme",
+  "dependencies": {
+    "@matrix-io/matrix-lite": "^0.4.6",
+    "mqtt": "^4.3.7"
+  }
+}

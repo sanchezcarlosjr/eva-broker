@@ -9,7 +9,7 @@ services:
         - "./rhasspy/profiles:/profiles"
         - "/etc/localtime:/etc/localtime:ro"
     ports:
-        - "12101:12101"
+        - "12101:12101" 
     devices:
         - "/dev/snd:/dev/snd"
-    command: --user-profiles /profiles --profile en
+    command: --user-profiles /profiles --profile es
