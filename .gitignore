@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 mosquitto/
 node_modules/
 rhasspy/
+=======
+password.txt
+log/
+data/
+>>>>>>> 79fbc01a13433b74da15ce976ef68e6e7567c4cd

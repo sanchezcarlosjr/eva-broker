@@ -1,15 +1,19 @@
-version: '3'
+version: "3.3"
 
 services:
- rhasspy:
-    image: "rhasspy/rhasspy"
-    container_name: rhasspy
-    restart: unless-stopped
+  mosquitto:
+    image: eclipse-mosquitto
     volumes:
-        - "./rhasspy/profiles:/profiles"
-        - "/etc/localtime:/etc/localtime:ro"
+      - ./config/:/mosquitto/config/
+      - ./log/:/mosquitto/log/
+      - data:/mosquitto/data/
     ports:
         - "12101:12101" 
     devices:
         - "/dev/snd:/dev/snd"
     command: --user-profiles /profiles --profile es
+      - 1883:1883
+      - 9001:9001
+
+volumes:
+  data: ~
