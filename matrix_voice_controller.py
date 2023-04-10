@@ -1,12 +1,13 @@
 import asyncio
 from jsonschema import validate
+import paho.mqtt as mqtt
 import asyncio_mqtt as aiomqtt
 import json
 from matrix_lite import led
 
 
 async def listen(queue):
-    async with aiomqtt.Client("158.97.91.177",8883) as client:
+    async with aiomqtt.Client("158.97.91.177", 8883, username = "eva_cicese", password = "NQz4esJX$") as client:
         async with client.messages() as messages:
             for key in ['eva/matrixvoice/leds/animation', "eva/matrixvoice/leds/settings"]:
                 await client.subscribe(key)
