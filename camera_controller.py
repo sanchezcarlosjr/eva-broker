@@ -1,12 +1,9 @@
 import asyncio
-import json
 import asyncio_mqtt as aiomqtt
 import base64
-
 import cv2
-import numpy as np
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(4)
 resize_width = 320
 resize_height = 240
 fps = 20 # frames per second
