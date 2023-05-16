@@ -4,9 +4,9 @@ import base64
 import cv2
 
 cap = cv2.VideoCapture(4)
-resize_width = 320
-resize_height = 240
-fps = 20 # frames per second
+resize_width = 480
+resize_height = 320
+fps = 60 # frames per second
 frame_interval = 1/fps # second per frame
 MQTT_QOS=0
 
@@ -23,7 +23,7 @@ async def publish_video_from_camera(client):
       await asyncio.sleep(frame_interval)
 
 async def listen():
-    async with aiomqtt.Client("localhost", 8883) as client:
+    async with aiomqtt.Client("158.97.91.177", 8883, username="eva_cicese", password="NQz4esJX$") as client:
          await publish_video_from_camera(client)
 
 

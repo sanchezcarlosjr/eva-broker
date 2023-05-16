@@ -4,11 +4,11 @@ import time
 # Connect to the serial port
 serial_connection = Connection(port="/dev/ttyUSB0", baudrate=57600)
 
-dynamixel_id = 2
+dynamixel_id = 1
 
-# Go to 0°
-serial_connection.goto(dynamixel_id, 0, speed=512, degrees=True)
-time.sleep(1)    # Wait 1 second
+for i in range(0,180):
+   serial_connection.goto(dynamixel_id, i, speed=512, degrees=True)
+   time.sleep(1)    # Wait 1 second
 
 # Go to -45° (45° CW)
 serial_connection.goto(dynamixel_id, -45, speed=512, degrees=True)
