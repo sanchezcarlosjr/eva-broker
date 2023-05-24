@@ -21,13 +21,9 @@ void loop()
       return;
    }
    char c = Serial.read();
-   if (c == '\0'){
-      return;
-   }
-   Serial.println(c);
    if(c == 'n' || c == 'N'){
        nod(3, (c == 'N' ? 26 : 13), (c == 'N' ? 26 : 13));
-    } else if(c == 's' || c == 'S'){
+   } else if(c == 's' || c == 'S'){
        shake(3, (c == 'S' ? 26 : 13), (c == 'S' ? 26 : 13));
      } else if (c == 'c'){
        center();
@@ -35,6 +31,18 @@ void loop()
        engine1 = down_right(1, c == 'R' ? 26 : 13);
      } else if (c == 'l' || c == 'L'){
        engine1 = up_left(1, c == 'L' ? 26 : 13);
+     } else if (c == 'u' || c == 'U'){
+       engine2 = up_left(2, c == 'U' ? 26 : 13);
+     } else if (c == 'd' || c == 'D'){
+       engine2 = down_right(2, c == 'D' ? 26 : 13);
+     } else if (c == 'e' || c == 'E'){
+       ne(c == 'E' ? 26 : 13);
+     } else if (c == 'q' || c == 'Q'){
+       nw(c == 'Q' ? 26 : 13);
+     } else if (c == 'x' || c == 'X'){
+       se(c == 'X' ? 26 : 13);
+     } else if (c == 'z' || c == 'Z'){
+       sw(c == 'Z' ? 26 : 13);
      } else if ( c == 'h') {
        char code[] = {'c', 'r', 'l', 'u', 'd', 'R', 'L', 'U', 'D', 'n', 'N', 's', 'S', 'e', 'E', 'q', 'Q', 'x', 'X', 'z', 'Z'};
        char *symbol[] = {"olarr", "rarr", "larr", "uarr", "darr", "rrarr", "llarr", "uuarr", "ddarr", "varr", "udarr", "harr", "lrarr", "nearr", "neArr", "nwarr", "nwArr", "searr", "seArr", "swarr", "swArr"};
@@ -45,10 +53,10 @@ void loop()
        int j = sizeof(code) - 1;
        codes = codes + "{\"code\":\"" + code[j] + "\",\"symbol\":\"&" + symbol[j] + ";\"}]";       
        Serial.println(codes);
-    }
+     }
 }
- 
-// 1 step = 0.29
+
+// 1 step = 0.29º
 int up_left(int engine, int top){
   int j = (engine == 1 ? engine1 : engine2);
   top = top + j;
@@ -105,3 +113,30 @@ void shake(int t, int top, int down){
   engine1 = up_left(1, top);
 }
 
+void ne(int steps){
+  for (int i = 0; i < steps; i++){
+    engine1 = down_right(1, 1);
+    engine2 = up_left(2, 1);
+  }
+}
+
+void nw(int steps){
+  for (int i = 0; i < steps; i++){
+    engine1 = up_left(1, 1);
+    engine2 = up_left(2, 1);
+  }
+}
+
+void se(int steps){
+  for (int i = 0; i < steps; i++){
+    engine1 = down_right(1, 1);
+    engine2 = down_right(2, 1);
+  }
+}
+
+void sw(int steps){
+  for (int i = 0; i < steps; i++){
+    engine2 = down_right(2, 1);
+    engine1 = up_left(1, 1);
+  }
+}
